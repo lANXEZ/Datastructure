@@ -74,21 +74,40 @@ public class DataIntro {
 	}
 
 	public void printHollowSquare(int N) {
-		for (int i = 1; i <= N; i++) {
-			if (i == 1 || i == N) {
-				for (int j = 0; j < N; j++) {
+		int lapCount = 0;
+		int starCount = 0;
+		while (true) {
+			if (lapCount == 0 || lapCount == N-1) {
+				while (starCount < N) {
 					System.out.print("*");
+					starCount++;
 					
 				}
 				System.out.println();
-			} else {
-				System.out.print("*");
-				for (int j = 0; j < N - 2; j++) {
-					System.out.print(" ");
-				}
-				System.out.println("*");
-
+				starCount = 0;
+				lapCount++;
+				
 			}
+			else if (lapCount > 0 && lapCount < N -1) {
+				while (starCount < N) {
+					if (starCount == 0 || starCount == N-1) {
+						System.out.print("*");
+					}
+					else {
+						System.out.print(" ");
+					}
+					starCount++;
+				}
+				starCount = 0;
+				System.out.println();
+				lapCount++;
+				
+			}
+			else {
+				lapCount = 0;
+				break;
+			}
+			
 		}
 	}
 
