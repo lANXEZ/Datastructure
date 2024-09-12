@@ -219,10 +219,8 @@ public class Sorting {
 			}
 			// Ex4. Complete this method.
 			// Call itself for sorting the leftHalf and the rightHalf
-			//leftHalf
-			RecursiveQuickSort(A, start, l_count);
-			//right
-			RecursiveQuickSort(A, l_count+1,l_count+r_count);
+			RecursiveQuickSort(A, start, start + l_count - 1);
+			RecursiveQuickSort(A, start + l_count + 1, end);
 		}
 
 	}
