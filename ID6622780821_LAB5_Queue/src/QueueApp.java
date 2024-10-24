@@ -63,58 +63,29 @@ public class QueueApp {
      * @return The result of the evaluated prefix expression.
      */
     static String prefixEval(String[] input) {
-        int len = input.length;
-        Queue<String> Q = new Queue<String>();
-        for (int i = 0; i < len; i++) {
-            Q.enqueue(input[i]);
-        }
-        // Exercise 4
-        // add your code here
-        String x, y, z;
-        Q.printHorizontal();
-        x = Q.dequeue();
-        y = Q.dequeue();
-        z = Q.dequeue();
-        String tmp;
-        if (Q.isEmpty()) {
-            if (isPrefix(x, y, z)) {
-                return evalPrefixString(x, y, z);
-            }
-        } else {
-            do {
-                if (isPrefix(x, y, z) == true) {
-                    tmp = evalPrefixString(x, y, z);
-                    Q.enqueue(tmp);
-                    if (!Q.isEmpty()) {
-                        x = Q.dequeue();
-                        y = Q.dequeue();
-                        z = Q.dequeue();
-                    }
-                } else {
-                    Q.enqueue(x);
-                    x = y;
-                    y = z;
-                    if (!Q.isEmpty()) {
-                        z = Q.dequeue();
-                    }
-                }
-            } while (!Q.isEmpty());
-            while (!isPrefix(x, y, z)) {
-                Q.enqueue(x);
-                x = y;
-                y = z;
-                z = Q.dequeue();
-            }
-            tmp = evalPrefixString(x, y, z);
-            Q.enqueue(tmp);
-        }
-        if (!Q.isEmpty()) {
-            return Q.dequeue();
+		Queue<String> Q = new Queue<String>();
+		for (int i = 0; i < input.length; i++) {
+			Q.enqueue(input[i]);
+		}
+		// Exercise 4
+		while (Q.getSize() != 1) {
+			String x = Q.dequeue();// add your code here
+			String y = Q.dequeue();
+			String z = Q.dequeue();
 
-        } else {
-            return null;
-        }
-    }
+			while (!isPrefix(x, y, z)) {
+				Q.enqueue(x);
+				x = y;
+				y = z;
+				z = Q.dequeue();
+			}
+			if (isPrefix(x, y, z)) {
+				Q.enqueue(evalPrefixString(x, y, z));
+			}
+
+		}
+		return Q.dequeue();
+	}
 
     /**
      * Simulates the "Hot Potato" game using a queue.
