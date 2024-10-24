@@ -97,7 +97,6 @@ class Stack<T> {
 	 * @return A new stack with the reversed order of elements.
 	 */
 	Stack<T> reverseStack() {// Exercise 3
-		SList<T> tmp = list;
 		Stack<T> T = new Stack<T>();
 		Stack<T> reversed = new Stack<T>();
 		while (!isEmpty()) {
