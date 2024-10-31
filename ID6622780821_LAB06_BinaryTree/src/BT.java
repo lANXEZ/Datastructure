@@ -226,12 +226,10 @@ public class BT<T> {
                     } else {
                         // add your code here
                         do{
-                            BT<String> rSubTree = new BT<>(parent.pop());
-                            BT<String> lSubTree = new BT<>(parent.pop());
-                            BT<String> root = new BT<>(new BTNode<>(item), lSubTree, rSubTree);
-                            BTStack.push(root);
-
-
+                            BT<String> rSubTree = BTStack.pop();
+                            BT<String> lSubTree = BTStack.pop();
+                            BT<String> newBT = new BT<>(parent.pop(), lSubTree, rSubTree);
+                            BTStack.push(newBT);
                         }while(!parent.isEmpty()&&hasHigherPriority(item, parent.peek().element));
                         parent.push(temp);
                     }
