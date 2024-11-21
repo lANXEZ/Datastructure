@@ -189,10 +189,20 @@ public class Graph<T> {
 
 		if (fromAdjList.firstMember != null && toData.equals(fromAdjList.firstMember.adjVertex)) {
 			// TODO: add your code here
+			fromAdjList.firstMember = fromAdjList.firstMember.nextMember;
+			fromAdjList.outdegree--;
+			edgeCount--;
 		} else if (fromAdjList.firstMember != null && !toData.equals(fromAdjList.firstMember.adjVertex)) {
 			Member<T> temp = fromAdjList.firstMember;
 			while (temp != null && temp.nextMember != null) {
 				// TODO: add your code here
+				if (temp.nextMember.adjVertex.equals(toData)) {
+					temp.nextMember = temp.nextMember.nextMember;
+					fromAdjList.outdegree--;
+					edgeCount--;
+				} else {
+					temp = temp.nextMember;
+				}
 			}
 		}
 	}
@@ -213,13 +223,22 @@ public class Graph<T> {
 		while (currentAdjList != null) {
 			if (!currentAdjList.data.equals(vertex)) {
 				// TODO: add your code here
+				deleteEdge(currentAdjList.data, vertex);
+				prevAdjList = currentAdjList;
+				currentAdjList = currentAdjList.nextList;
 			} else {
 				if (currentAdjList == firstList) {
 					firstList = currentAdjList.nextList;
 				} else if (currentAdjList == lastList) {
 					// TODO: add your code here
+					lastList = prevAdjList;
+					lastList.nextList = null;
 				} else {
 					// TODO: add your code here
+					edgeCount = edgeCount - currentAdjList.outdegree;
+					vertexCount--;
+					prevAdjList.nextList = currentAdjList.nextList;
+					currentAdjList = currentAdjList.nextList;
 				}
 			}
 		}
